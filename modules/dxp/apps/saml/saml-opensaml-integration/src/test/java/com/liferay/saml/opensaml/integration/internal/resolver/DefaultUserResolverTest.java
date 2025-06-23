@@ -26,8 +26,6 @@ import com.liferay.portal.kernel.service.UserGroupLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.test.ReflectionTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
-import com.liferay.portal.kernel.util.Digester;
-import com.liferay.portal.kernel.util.DigesterUtil;
 import com.liferay.portal.kernel.util.PrefsProps;
 import com.liferay.portal.kernel.util.PropertiesUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
@@ -144,7 +142,6 @@ public class DefaultUserResolverTest extends BaseSamlTestCase {
 			new UserProcessorFactoryImpl());
 
 		_expandoValueLocalService = _mockExpandoValueLocalService();
-		_mockDigesterUtil();
 		_mockLanguageUtil();
 		_prefsProps = _mockPrefsProps();
 		_samlProviderConfigurationHelper =
@@ -839,20 +836,6 @@ public class DefaultUserResolverTest extends BaseSamlTestCase {
 		);
 
 		return userFieldExpressionHandlerRegistry;
-	}
-
-	private void _mockDigesterUtil() {
-		DigesterUtil digesterUtil = new DigesterUtil();
-
-		Digester digester = Mockito.mock(Digester.class);
-
-		Mockito.when(
-			digester.digest(Mockito.nullable(String.class))
-		).thenReturn(
-			RandomTestUtil.randomString()
-		);
-
-		digesterUtil.setDigester(digester);
 	}
 
 	private ExpandoColumnLocalService _mockExpandoColumnLocalService()
