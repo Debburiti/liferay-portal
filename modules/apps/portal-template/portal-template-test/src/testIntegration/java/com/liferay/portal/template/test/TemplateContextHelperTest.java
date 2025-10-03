@@ -20,6 +20,8 @@ import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 
 import java.io.InputStream;
 
+import java.lang.reflect.Method;
+
 import java.net.URL;
 
 import java.util.HashMap;
@@ -44,6 +46,31 @@ public class TemplateContextHelperTest {
 	@Rule
 	public static final AggregateTestRule aggregateTestRule =
 		new LiferayIntegrationTestRule();
+
+	@Test
+	public void testExpandoServicesInTemplateContext() throws Exception {
+		TemplateContextHelper templateContextHelper =
+			new TemplateContextHelper();
+		Map<String, Object> variables = new HashMap<>();
+
+		Method method = TemplateContextHelper.class.getDeclaredMethod(
+			"populateCommonHelperUtilities", Map.class);
+
+		method.setAccessible(true);
+		method.invoke(templateContextHelper, variables);
+
+		Assert.assertFalse(variables.containsKey("expandoColumnLocalService"));
+
+		Assert.assertFalse(variables.containsKey("expandoRowLocalService"));
+
+		Assert.assertFalse(variables.containsKey("expandoTableLocalService"));
+
+		Assert.assertFalse(variables.containsKey("expandoValueLocalService"));
+
+		Assert.assertTrue(variables.containsKey("serviceLocator"));
+
+		Assert.assertNotNull(variables.get("serviceLocator"));
+	}
 
 	@Test
 	public void testFollowRedirectDisabled() throws Exception {
