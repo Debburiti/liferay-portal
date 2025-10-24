@@ -20,6 +20,7 @@ import aQute.lib.filter.Filter;
 
 import com.liferay.ant.bnd.jsp.JspAnalyzerPlugin;
 import com.liferay.petra.io.unsync.UnsyncByteArrayOutputStream;
+import com.liferay.portal.osgi.web.wab.generator.internal.processor.WabProcessor;
 import com.liferay.portal.kernel.deploy.auto.context.AutoDeploymentContext;
 import com.liferay.portal.kernel.security.xml.SecureXMLFactoryProviderUtil;
 import com.liferay.portal.kernel.test.ReflectionTestUtil;
