@@ -1,0 +1,45 @@
+import com.liferay.gradle.plugins.patcher.PatchTask
+apply plugin: "com.liferay.patcher"
+
+task jarManifest
+task jarPatched(type: Zip)
+task patch(type: PatchTask)
+
+tasks.named('jarSources') {
+	dependsOn patch
+}
+dependencies {
+	compileInclude group: "org.apache.tika", name: "tika-core", version: "1.28.5"
+	compileInclude group: "org.apache.tika", name: "tika-parsers", version: "1.28.5"
+	compileOnly group: "commons-io", name: "commons-io", version: "2.19.0"
+}
+
+jarManifest {
+	doLast {
+		ant.jar(destfile: jar.archivePath, update: true)
+	}
+}
+
+jarPatched {
+	archiveFileName = jar.archiveFileName
+	destinationDirectory = jar.destinationDirectory
+	duplicatesStrategy = "exclude"
+	exclude "META-INF/versions/9/module-info.class"
+	from sourceSets.main.output
+
+	from {
+		zipTree(configurations.compileOnly.singleFile)
+	}
+
+	mustRunAfter compileJava
+	mustRunAfter generatePomFileForMavenPublication
+	mustRunAfter processResources
+}
+
+patch {
+	ext {
+		autoClean = false
+	}
+	fileNames "org/apache/tika/parser/odf/OpenDocumentParser.java"
+	originalLibModuleName = "tika-parsers"
+}
