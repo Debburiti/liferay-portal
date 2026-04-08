@@ -50,8 +50,8 @@ patch {
 		autoClean = false
 	}
 
+	fileNames "org/apache/logging/log4j/core/appender/rolling/PatternProcessor.java"
 	fileNames "org/apache/logging/log4j/core/lookup/Interpolator.java"
 	fileNames "org/apache/logging/log4j/core/pattern/DatePatternConverter.java"
-	fileNames "org/apache/logging/log4j/core/appender/rolling/PatternProcessor.java"
 	originalLibModuleName = "log4j-core"
 }
