@@ -3118,30 +3118,6 @@
 				</licenses>
 			</library>
 			<library>
-				<file-name>com.liferay.portal.search.elasticsearch8.impl.jar!log4j-api.jar</file-name>
-				<version>2.20.0</version>
-				<project-name>Apache Log4j API</project-name>
-				<project-url>https://www.apache.org/</project-url>
-				<licenses>
-					<license>
-						<license-name>Apache License, Version 2.0</license-name>
-						<license-url>https://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
-					</license>
-				</licenses>
-			</library>
-			<library>
-				<file-name>com.liferay.portal.search.elasticsearch8.impl.jar!log4j-core.jar</file-name>
-				<version>2.20.0</version>
-				<project-name>Apache Log4j Core</project-name>
-				<project-url>https://www.apache.org/</project-url>
-				<licenses>
-					<license>
-						<license-name>Apache License, Version 2.0</license-name>
-						<license-url>https://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
-					</license>
-				</licenses>
-			</library>
-			<library>
 				<file-name>com.liferay.portal.search.elasticsearch8.impl.jar!opentelemetry-api.jar</file-name>
 				<version>1.57.0</version>
 				<project-name>OpenTelemetry Java</project-name>
@@ -3412,7 +3388,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.portal.security.key.provider.aws.jar!aws-java-sdk-secretsmanager.jar</file-name>
-				<version>1.12.778</version>
+				<version>1.12.719</version>
 				<project-name>AWS Java SDK for AWS Secrets Manager</project-name>
 				<project-url>https://aws.amazon.com/sdkforjava</project-url>
 				<licenses>
@@ -3424,7 +3400,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.portal.security.key.provider.aws.jar!aws-java-sdk-sts.jar</file-name>
-				<version>1.12.778</version>
+				<version>1.12.719</version>
 				<project-name>AWS Java SDK for AWS STS</project-name>
 				<project-url>https://aws.amazon.com/sdkforjava</project-url>
 				<licenses>
@@ -3448,7 +3424,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.portal.security.key.provider.aws.jar!jmespath-java.jar</file-name>
-				<version>1.12.778</version>
+				<version>1.12.719</version>
 				<project-name>JMES Path Query library</project-name>
 				<project-url>https://aws.amazon.com/sdkforjava</project-url>
 				<licenses>
@@ -8727,7 +8703,7 @@
 			</library>
 			<library>
 				<file-name>lib/portal/commons-configuration.jar</file-name>
-				<version>1.10.LIFERAY-PATCHED-2</version>
+				<version>1.10.LIFERAY-PATCHED-3</version>
 				<project-name>Commons Configuration</project-name>
 				<project-url>http://commons.apache.org/configuration</project-url>
 				<licenses>
