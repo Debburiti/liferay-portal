@@ -44,7 +44,7 @@ public class MapUtilWhenCreatingALinkedHashMapFromArrayTest {
 	@Test
 	public void testShouldReturnEmptyMapWithParamsTypeObject() {
 		try (LogCapture logCapture = LoggerTestUtil.configureLog4JLogger(
-				MapUtil.class.getName(), LoggerTestUtil.ERROR)) {
+				MapUtil.class.getName(), LoggerTestUtil.WARN)) {
 
 			Map<String, Object> map = MapUtil.toLinkedHashMap(
 				new String[] {"one:1:" + Object.class.getName()});
@@ -58,13 +58,10 @@ public class MapUtilWhenCreatingALinkedHashMapFromArrayTest {
 			LogEntry logEntry = logEntries.get(0);
 
 			Assert.assertEquals(
-				"java.lang.Object.<init>(java.lang.String)",
+				"Params type java.lang.Object is not supported",
 				logEntry.getMessage());
 
-			Throwable throwable = logEntry.getThrowable();
-
-			Assert.assertSame(
-				NoSuchMethodException.class, throwable.getClass());
+			Assert.assertNull(logEntry.getThrowable());
 		}
 	}
 
