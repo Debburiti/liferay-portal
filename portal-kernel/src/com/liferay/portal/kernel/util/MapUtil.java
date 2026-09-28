@@ -10,8 +10,6 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 
-import java.lang.reflect.Constructor;
-
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -343,10 +341,20 @@ public class MapUtil {
 
 					map.put(kvp[0], Boolean.valueOf(kvp[1]));
 				}
+				else if (StringUtil.equalsIgnoreCase(type, "byte") ||
+						 type.equals(Byte.class.getName())) {
+
+					map.put(kvp[0], Byte.valueOf(kvp[1]));
+				}
 				else if (StringUtil.equalsIgnoreCase(type, "double") ||
 						 type.equals(Double.class.getName())) {
 
 					map.put(kvp[0], Double.valueOf(kvp[1]));
+				}
+				else if (StringUtil.equalsIgnoreCase(type, "float") ||
+						 type.equals(Float.class.getName())) {
+
+					map.put(kvp[0], Float.valueOf(kvp[1]));
 				}
 				else if (StringUtil.equalsIgnoreCase(type, "int") ||
 						 type.equals(Integer.class.getName())) {
@@ -366,18 +374,8 @@ public class MapUtil {
 				else if (type.equals(String.class.getName())) {
 					map.put(kvp[0], kvp[1]);
 				}
-				else {
-					try {
-						Class<?> clazz = Class.forName(type);
-
-						Constructor<?> constructor = clazz.getConstructor(
-							String.class);
-
-						map.put(kvp[0], constructor.newInstance(kvp[1]));
-					}
-					catch (Exception exception) {
-						_log.error(exception);
-					}
+				else if (_log.isWarnEnabled()) {
+					_log.warn("Params type " + type + " is not supported");
 				}
 			}
 		}
