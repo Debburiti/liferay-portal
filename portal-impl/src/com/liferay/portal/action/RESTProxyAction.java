@@ -25,6 +25,9 @@ import com.liferay.portal.struts.model.ActionMapping;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 /**
  * @author David Truong
  * @author Gavin Wan
@@ -78,8 +81,34 @@ public class RESTProxyAction implements Action {
 		}
 
 		for (String urlPrefix : PropsValues.REST_PROXY_URL_PREFIXES_ALLOWED) {
-			if (StringUtil.startsWith(url, urlPrefix)) {
+			if (!StringUtil.startsWith(url, urlPrefix)) {
+				continue;
+			}
+
+			int index = urlPrefix.indexOf(Http.PROTOCOL_DELIMITER);
+
+			if ((index > 0) &&
+				(index ==
+					(urlPrefix.length() - Http.PROTOCOL_DELIMITER.length()))) {
+
 				return true;
+			}
+
+			try {
+				URI uri = HttpComponentsUtil.getURI(url);
+				URI urlPrefixURI = HttpComponentsUtil.getURI(urlPrefix);
+
+				if (StringUtil.equalsIgnoreCase(
+						uri.getRawAuthority(),
+						urlPrefixURI.getRawAuthority())) {
+
+					return true;
+				}
+			}
+			catch (URISyntaxException uriSyntaxException) {
+				if (_log.isDebugEnabled()) {
+					_log.debug(uriSyntaxException);
+				}
 			}
 		}
 
