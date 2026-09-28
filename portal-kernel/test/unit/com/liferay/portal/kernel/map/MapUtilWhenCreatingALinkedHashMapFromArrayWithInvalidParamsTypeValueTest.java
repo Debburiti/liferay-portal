@@ -21,9 +21,26 @@ public class
 	MapUtilWhenCreatingALinkedHashMapFromArrayWithInvalidParamsTypeValueTest {
 
 	@Test(expected = NumberFormatException.class)
+	public void testShouldFailWithByte() {
+		MapUtil.toLinkedHashMap(new String[] {"one:foo:byte"});
+	}
+
+	@Test(expected = NumberFormatException.class)
+	public void testShouldFailWithCompositeByte() {
+		MapUtil.toLinkedHashMap(
+			new String[] {"one:foo:" + Byte.class.getName()});
+	}
+
+	@Test(expected = NumberFormatException.class)
 	public void testShouldFailWithCompositeDouble() {
 		MapUtil.toLinkedHashMap(
 			new String[] {"one:foo:" + Double.class.getName()});
+	}
+
+	@Test(expected = NumberFormatException.class)
+	public void testShouldFailWithCompositeFloat() {
+		MapUtil.toLinkedHashMap(
+			new String[] {"one:foo:" + Float.class.getName()});
 	}
 
 	@Test(expected = NumberFormatException.class)
@@ -47,6 +64,11 @@ public class
 	@Test(expected = NumberFormatException.class)
 	public void testShouldFailWithDouble() {
 		MapUtil.toLinkedHashMap(new String[] {"one:foo:double"});
+	}
+
+	@Test(expected = NumberFormatException.class)
+	public void testShouldFailWithFloat() {
+		MapUtil.toLinkedHashMap(new String[] {"one:foo:float"});
 	}
 
 	@Test(expected = NumberFormatException.class)
