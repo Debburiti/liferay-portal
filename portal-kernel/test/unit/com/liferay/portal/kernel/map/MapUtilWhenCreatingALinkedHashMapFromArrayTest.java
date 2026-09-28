@@ -69,6 +69,14 @@ public class MapUtilWhenCreatingALinkedHashMapFromArrayTest {
 	}
 
 	@Test
+	public void testShouldReturnEmptyMapWithParamsTypeStringBuilder() {
+		Map<String, Object> map = MapUtil.toLinkedHashMap(
+			new String[] {"one:1:" + StringBuilder.class.getName()});
+
+		Assert.assertTrue(map.toString(), map.isEmpty());
+	}
+
+	@Test
 	public void testShouldReturnEmptyMapWithParamsZeroLength() {
 		Map<String, String> map = MapUtil.toLinkedHashMap(new String[0]);
 
