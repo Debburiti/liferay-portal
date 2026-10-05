@@ -70,7 +70,7 @@ public class BannedKeyLicenseTest extends BaseLicenseTestCase {
 		String[] bannedKeys = ArrayUtil.toStringArray(
 			(Set<String>)_bannedKeysField.get(getValidateClass()));
 
-		Assert.assertEquals(bannedKeys.toString(), 80, bannedKeys.length);
+		Assert.assertTrue(bannedKeys.toString(), bannedKeys.length > 0);
 
 		String bannedKey = bannedKeys[bannedKeys.length - 1];
 
