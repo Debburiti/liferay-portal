@@ -39,16 +39,17 @@ public class TemplateRestrictedMethodsTest {
 	public void testGetRestrictedMethods() throws Exception {
 		User user = TestPropsValues.getUser();
 
-		_testGetRestrictedMethods("${object.attributeGetterFunctions}", user);
-		_testGetRestrictedMethods("${object.digest}", user);
-		_testGetRestrictedMethods("${object.modelAttributes.digest}", user);
-		_testGetRestrictedMethods("${object.modelAttributes.password}", user);
+		_testGetRestrictedMethods(user, "${object.attributeGetterFunctions}");
+		_testGetRestrictedMethods(user, "${object.digest}");
+		_testGetRestrictedMethods(user, "${object.modelAttributes.digest}");
+		_testGetRestrictedMethods(user, "${object.modelAttributes.password}");
 		_testGetRestrictedMethods(
-			"${object.modelAttributes.reminderQueryAnswer}", user);
-		_testGetRestrictedMethods("${object.toCacheModel()}", user);
+			user, "${object.modelAttributes.reminderQueryAnswer}");
+		_testGetRestrictedMethods(user, "${object.toCacheModel()}");
 	}
 
-	private void _testGetRestrictedMethods(String templateContent, User user)
+	private void _testGetRestrictedMethods(
+			Object object, String templateContent)
 		throws Exception {
 
 		Template template = TemplateManagerUtil.getTemplate(
@@ -57,7 +58,7 @@ public class TemplateRestrictedMethodsTest {
 				RandomTestUtil.randomString(), templateContent),
 			true);
 
-		template.put("object", user);
+		template.put("object", object);
 
 		try {
 			template.processTemplate(new UnsyncStringWriter());
