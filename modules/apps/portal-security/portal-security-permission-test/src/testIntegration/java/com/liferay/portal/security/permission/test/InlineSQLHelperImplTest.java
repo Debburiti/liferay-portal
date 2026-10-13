@@ -371,6 +371,22 @@ public class InlineSQLHelperImplTest {
 	}
 
 	@Test
+	public void testIsEnabled() throws Exception {
+		_setPermissionChecker();
+
+		Assert.assertTrue(_inlineSQLHelper.isEnabled(new long[0]));
+	}
+
+	@Test
+	public void testReplacePermissionCheck() throws Exception {
+		_setPermissionChecker();
+
+		_checkSQLComposition(
+			_inlineSQLHelper.replacePermissionCheck(
+				_SQL_PLAIN, _CLASS_NAME, _CLASS_PK_FIELD, new long[0]));
+	}
+
+	@Test
 	public void testReplaceQuery() throws Exception {
 		_addGroupRole(_groupOne, RoleConstants.SITE_ADMINISTRATOR);
 		_addGroupRole(_groupTwo, RoleConstants.SITE_MEMBER);
