@@ -88,6 +88,36 @@ public class TemplateRestrictedVariablesTest {
 	}
 
 	@Test
+	public void testRestrictedEnumUtil() throws Exception {
+		Bundle bundle = FrameworkUtil.getBundle(
+			TemplateRestrictedVariablesTest.class);
+
+		BundleContext bundleContext = bundle.getBundleContext();
+
+		Collection<ServiceReference<TemplateManager>> serviceReferences =
+			bundleContext.getServiceReferences(
+				TemplateManager.class,
+				"(language.type=" + TemplateConstants.LANG_TYPE_FTL + ")");
+
+		Assert.assertFalse(serviceReferences.isEmpty());
+
+		for (ServiceReference<TemplateManager> serviceReference :
+				serviceReferences) {
+
+			TemplateManager templateManager = bundleContext.getService(
+				serviceReference);
+
+			try {
+				_testRestrictedEnumUtil("ACCESSIBLE", false, templateManager);
+				_testRestrictedEnumUtil("DENIED", true, templateManager);
+			}
+			finally {
+				bundleContext.ungetService(serviceReference);
+			}
+		}
+	}
+
+	@Test
 	public void testRestrictedSAXReaderUtil() throws Exception {
 		Bundle bundle = FrameworkUtil.getBundle(
 			TemplateRestrictedVariablesTest.class);
@@ -116,6 +146,24 @@ public class TemplateRestrictedVariablesTest {
 				bundleContext.ungetService(serviceReference);
 			}
 		}
+	}
+
+	private void _testRestrictedEnumUtil(
+			String expected, boolean restricted,
+			TemplateManager templateManager)
+		throws Exception {
+
+		Template template = templateManager.getTemplate(
+			new StringTemplateResource(
+				RandomTestUtil.randomString(),
+				"<#if enumUtil??>ACCESSIBLE<#else>DENIED</#if>"),
+			restricted);
+
+		UnsyncStringWriter unsyncStringWriter = new UnsyncStringWriter();
+
+		template.processTemplate(unsyncStringWriter);
+
+		Assert.assertEquals(expected, unsyncStringWriter.toString());
 	}
 
 	private void _testRestrictedSAXReaderUtil(
