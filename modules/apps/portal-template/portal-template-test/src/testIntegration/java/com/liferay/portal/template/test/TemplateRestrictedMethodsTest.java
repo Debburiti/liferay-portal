@@ -7,7 +7,9 @@ package com.liferay.portal.template.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.petra.io.unsync.UnsyncStringWriter;
+import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.CompanyLocalServiceUtil;
 import com.liferay.portal.kernel.template.StringTemplateResource;
 import com.liferay.portal.kernel.template.Template;
 import com.liferay.portal.kernel.template.TemplateConstants;
@@ -37,6 +39,19 @@ public class TemplateRestrictedMethodsTest {
 
 	@Test
 	public void testGetRestrictedMethods() throws Exception {
+		Company company = CompanyLocalServiceUtil.getCompany(
+			TestPropsValues.getCompanyId());
+
+		_testGetRestrictedMethods(
+			company, "${object.companyInfo.attributeGetterFunctions}");
+		_testGetRestrictedMethods(company, "${object.companyInfo.key}");
+		_testGetRestrictedMethods(
+			company, "${object.companyInfo.modelAttributes}");
+		_testGetRestrictedMethods(
+			company, "${object.companyInfo.toCacheModel()}");
+		_testGetRestrictedMethods(company, "${object.companyInfo.toString()}");
+		_testGetRestrictedMethods(company, "${object.keyObj.encoded}");
+
 		User user = TestPropsValues.getUser();
 
 		_testGetRestrictedMethods(user, "${object.attributeGetterFunctions}");
