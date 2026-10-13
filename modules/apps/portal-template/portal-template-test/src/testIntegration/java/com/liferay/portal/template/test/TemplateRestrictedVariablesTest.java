@@ -88,7 +88,7 @@ public class TemplateRestrictedVariablesTest {
 	}
 
 	@Test
-	public void testRestrictedEnumUtil() throws Exception {
+	public void testGetTemplate() throws Exception {
 		Bundle bundle = FrameworkUtil.getBundle(
 			TemplateRestrictedVariablesTest.class);
 
@@ -108,8 +108,13 @@ public class TemplateRestrictedVariablesTest {
 				serviceReference);
 
 			try {
-				_testRestrictedEnumUtil("ACCESSIBLE", false, templateManager);
-				_testRestrictedEnumUtil("DENIED", true, templateManager);
+				_testGetTemplate(
+					"ACCESSIBLE", false, templateManager, "enumUtil");
+				_testGetTemplate(
+					"ACCESSIBLE", false, templateManager, "saxReaderUtil");
+				_testGetTemplate("DENIED", true, templateManager, "enumUtil");
+				_testGetTemplate(
+					"DENIED", true, templateManager, "saxReaderUtil");
 			}
 			finally {
 				bundleContext.ungetService(serviceReference);
@@ -117,64 +122,15 @@ public class TemplateRestrictedVariablesTest {
 		}
 	}
 
-	@Test
-	public void testRestrictedSAXReaderUtil() throws Exception {
-		Bundle bundle = FrameworkUtil.getBundle(
-			TemplateRestrictedVariablesTest.class);
-
-		BundleContext bundleContext = bundle.getBundleContext();
-
-		Collection<ServiceReference<TemplateManager>> serviceReferences =
-			bundleContext.getServiceReferences(
-				TemplateManager.class,
-				"(language.type=" + TemplateConstants.LANG_TYPE_FTL + ")");
-
-		Assert.assertFalse(serviceReferences.isEmpty());
-
-		for (ServiceReference<TemplateManager> serviceReference :
-				serviceReferences) {
-
-			TemplateManager templateManager = bundleContext.getService(
-				serviceReference);
-
-			try {
-				_testRestrictedSAXReaderUtil(
-					"ACCESSIBLE", false, templateManager);
-				_testRestrictedSAXReaderUtil("DENIED", true, templateManager);
-			}
-			finally {
-				bundleContext.ungetService(serviceReference);
-			}
-		}
-	}
-
-	private void _testRestrictedEnumUtil(
+	private void _testGetTemplate(
 			String expected, boolean restricted,
-			TemplateManager templateManager)
+			TemplateManager templateManager, String variableName)
 		throws Exception {
 
 		Template template = templateManager.getTemplate(
 			new StringTemplateResource(
 				RandomTestUtil.randomString(),
-				"<#if enumUtil??>ACCESSIBLE<#else>DENIED</#if>"),
-			restricted);
-
-		UnsyncStringWriter unsyncStringWriter = new UnsyncStringWriter();
-
-		template.processTemplate(unsyncStringWriter);
-
-		Assert.assertEquals(expected, unsyncStringWriter.toString());
-	}
-
-	private void _testRestrictedSAXReaderUtil(
-			String expected, boolean restricted,
-			TemplateManager templateManager)
-		throws Exception {
-
-		Template template = templateManager.getTemplate(
-			new StringTemplateResource(
-				RandomTestUtil.randomString(),
-				"<#if saxReaderUtil??>ACCESSIBLE<#else>DENIED</#if>"),
+				"<#if " + variableName + "??>ACCESSIBLE<#else>DENIED</#if>"),
 			restricted);
 
 		UnsyncStringWriter unsyncStringWriter = new UnsyncStringWriter();
