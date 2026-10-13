@@ -242,6 +242,10 @@ public class InlineSQLHelperImpl implements InlineSQLHelper {
 			return false;
 		}
 
+		if (ArrayUtil.isEmpty(groupIds)) {
+			groupIds = new long[] {0};
+		}
+
 		for (long groupId : groupIds) {
 			if (isEnabled(groupId)) {
 				return true;
@@ -288,6 +292,11 @@ public class InlineSQLHelperImpl implements InlineSQLHelper {
 		String sql, String className, String classPKField, long[] groupIds) {
 
 		Set<Long> disabledGroupIds = new HashSet<>();
+
+		if (ArrayUtil.isEmpty(groupIds)) {
+			groupIds = new long[] {0};
+		}
+
 		PermissionChecker permissionChecker =
 			PermissionThreadLocal.getPermissionChecker();
 
