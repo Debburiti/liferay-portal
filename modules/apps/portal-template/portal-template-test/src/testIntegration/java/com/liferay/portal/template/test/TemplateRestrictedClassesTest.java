@@ -71,6 +71,57 @@ public class TemplateRestrictedClassesTest {
 			fileSystem.provider(), "${object.getScheme()}");
 	}
 
+	@Test
+	public void testRestrictedNestedRender() throws Exception {
+		String templateContent =
+			"#set($string = \"\")$string.getClass().forName(" +
+				"\"java.lang.Runtime\")";
+
+		Assert.assertFalse(
+			templateContent, _resolvesRestrictedClass(templateContent));
+
+		String nestedTemplateContent =
+			"$innerTemplate.processTemplate($writer)" + templateContent;
+
+		Assert.assertFalse(
+			nestedTemplateContent,
+			_resolvesRestrictedClass(nestedTemplateContent));
+	}
+
+	private boolean _resolvesRestrictedClass(String templateContent)
+		throws Exception {
+
+		Template template = TemplateManagerUtil.getTemplate(
+			TemplateConstants.LANG_TYPE_VM,
+			new StringTemplateResource(
+				RandomTestUtil.randomString(), templateContent),
+			true);
+
+		template.put(
+			"innerTemplate",
+			TemplateManagerUtil.getTemplate(
+				TemplateConstants.LANG_TYPE_VM,
+				new StringTemplateResource(
+					RandomTestUtil.randomString(),
+					RandomTestUtil.randomString()),
+				true));
+		template.put("writer", new UnsyncStringWriter());
+
+		UnsyncStringWriter unsyncStringWriter = new UnsyncStringWriter();
+
+		try {
+			template.processTemplate(unsyncStringWriter);
+		}
+		catch (TemplateException templateException) {
+			return false;
+		}
+
+		return unsyncStringWriter.toString(
+		).contains(
+			"java.lang.Runtime"
+		);
+	}
+
 	private void _testGetRestrictedClasses(
 			Object object, String templateContent)
 		throws Exception {
