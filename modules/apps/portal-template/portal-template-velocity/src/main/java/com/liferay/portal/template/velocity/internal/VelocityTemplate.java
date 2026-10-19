@@ -134,6 +134,8 @@ public class VelocityTemplate extends BaseTemplate {
 		TemplateResourceThreadLocal.setTemplateResource(
 			TemplateConstants.LANG_TYPE_VM, templateResource);
 
+		boolean restricted = RestrictedTemplateThreadLocal.isRestricted();
+
 		if (_restricted) {
 			RestrictedTemplateThreadLocal.setRestricted(true);
 		}
@@ -149,9 +151,7 @@ public class VelocityTemplate extends BaseTemplate {
 			TemplateResourceThreadLocal.setTemplateResource(
 				TemplateConstants.LANG_TYPE_VM, null);
 
-			if (_restricted) {
-				RestrictedTemplateThreadLocal.setRestricted(false);
-			}
+			RestrictedTemplateThreadLocal.setRestricted(restricted);
 		}
 	}
 
