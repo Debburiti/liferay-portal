@@ -64,6 +64,18 @@ const SummaryHeader: React.FC<Props> = ({failed, ignored, passed, total}) => {
 					{Liferay.Language.get('ignored')}
 				</span>
 			</div>
+
+			<div className="mt-2">
+				<a
+					href="https://www.liferay.com/resources/product-info/Liferay+DXP+7.4+Deployment+Checklist"
+					rel="noopener noreferrer"
+					target="_blank"
+				>
+					{Liferay.Language.get(
+						'click-here-to-learn-more-about-what-settings-liferay-recommends-to-check-before-a-dxp-deployment'
+					)}
+				</a>
+			</div>
 		</div>
 	);
 };
