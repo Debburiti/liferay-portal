@@ -131,6 +131,16 @@ describe('ProductionReadinessDashboard', () => {
 			})
 		).toBeInTheDocument();
 
+		const link = within(summary).getByRole('link', {
+			name: 'click-here-to-learn-more-about-what-settings-liferay-recommends-to-check-before-a-dxp-deployment',
+		});
+
+		expect(link).toHaveAttribute(
+			'href',
+			'https://www.liferay.com/resources/product-info/Liferay+DXP+7.4+Deployment+Checklist'
+		);
+		expect(link).toHaveAttribute('target', '_blank');
+
 		expect(
 			screen.getByText('Security', {
 				selector: '.panel-header .text-uppercase',
