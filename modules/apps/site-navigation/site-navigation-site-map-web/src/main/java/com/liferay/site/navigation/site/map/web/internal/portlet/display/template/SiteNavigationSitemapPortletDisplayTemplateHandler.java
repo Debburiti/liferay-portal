@@ -10,6 +10,7 @@ import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.LayoutSet;
 import com.liferay.portal.kernel.template.TemplateHandler;
 import com.liferay.portal.kernel.template.TemplateVariableGroup;
+import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portlet.display.template.BasePortletDisplayTemplateHandler;
 import com.liferay.portlet.display.template.constants.PortletDisplayTemplateConstants;
@@ -36,6 +37,13 @@ public class SiteNavigationSitemapPortletDisplayTemplateHandler
 	@Override
 	public String getClassName() {
 		return LayoutSet.class.getName();
+	}
+
+	@Override
+	public Map<String, Object> getCustomContextObjects() {
+		return HashMapBuilder.<String, Object>put(
+			"siteMapDisplayTemplateHelper", new SiteMapDisplayTemplateHelper()
+		).build();
 	}
 
 	@Override
