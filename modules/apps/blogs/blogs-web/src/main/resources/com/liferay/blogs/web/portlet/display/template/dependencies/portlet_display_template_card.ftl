@@ -11,7 +11,7 @@
 				<li class="card-page-item card-page-item-asset">
 					<div class="card">
 						<div class="aspect-ratio aspect-ratio-8-to-3 card-item-first">
-								<img alt="thumbnail" class="aspect-ratio-item-center-middle aspect-ratio-item-fluid" src="${cardImage?then(curBlogEntry.getCoverImageURL(themeDisplay), portalUtil.getPathContext(renderRequest) + "/images/cover_image_placeholder.jpg")}">
+								<img alt="thumbnail" class="aspect-ratio-item-center-middle aspect-ratio-item-fluid" src="${cardImage?then(curBlogEntry.getCoverImageURL(themeDisplay), blogsDisplayTemplateHelper.getPathContext(renderRequest) + "/images/cover_image_placeholder.jpg")}">
 						</div>
 
 						<div class="card-body widget-topbar">
@@ -154,7 +154,7 @@
 										target="_blank"
 										title=blogsEntryUtil.getDisplayTitle(resourceBundle, curBlogEntry)
 										types=blogsPortletInstanceConfiguration.socialBookmarksTypes()
-										url=portalUtil.getCanonicalURL(bookmarkURL.toString(), themeDisplay, themeDisplay.getLayout())
+										url=blogsDisplayTemplateHelper.getCanonicalURL(bookmarkURL.toString(), themeDisplay.getLayout(), themeDisplay)
 									/>
 								</div>
 							</div>
