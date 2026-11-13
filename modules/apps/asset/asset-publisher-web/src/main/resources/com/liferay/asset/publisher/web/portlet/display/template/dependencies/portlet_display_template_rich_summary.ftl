@@ -113,7 +113,7 @@
 			<#assign dateFormat = "dd MMM yyyy - HH:mm:ss" />
 
 			<#if stringUtil.equals(fieldName, "author")>
-				<@liferay.language key="by" /> ${htmlUtil.escape(portalUtil.getUserName(assetRenderer.getUserId(), assetRenderer.getUserName()))}
+				<@liferay.language key="by" /> ${htmlUtil.escape(assetPublisherDisplayTemplateHelper.getUserName(assetRenderer.getUserName(), assetRenderer.getUserId()))}
 			<#elseif stringUtil.equals(fieldName, "categories")>
 				<@liferay_asset["asset-categories-summary"]
 					className=entry.getClassName()
