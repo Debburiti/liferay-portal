@@ -18,6 +18,7 @@ import com.liferay.asset.kernel.service.AssetVocabularyService;
 import com.liferay.asset.publisher.constants.AssetPublisherPortletKeys;
 import com.liferay.asset.publisher.util.AssetPublisherHelper;
 import com.liferay.asset.publisher.web.internal.util.AssetAnalyticsAttributesHelper;
+import com.liferay.asset.publisher.web.internal.util.AssetPublisherDisplayTemplateHelper;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.language.Language;
 import com.liferay.portal.kernel.log.Log;
@@ -57,6 +58,9 @@ public class AssetPublisherPortletDisplayTemplateHandler
 		return HashMapBuilder.<String, Object>put(
 			"assetAnalyticsAttributesHelper",
 			new AssetAnalyticsAttributesHelper()
+		).put(
+			"assetPublisherDisplayTemplateHelper",
+			new AssetPublisherDisplayTemplateHelper()
 		).put(
 			"assetPublisherHelper", assetPublisherHelper
 		).build();

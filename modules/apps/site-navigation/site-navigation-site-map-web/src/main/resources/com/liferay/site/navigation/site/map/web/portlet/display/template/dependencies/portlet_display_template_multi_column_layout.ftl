@@ -10,7 +10,7 @@
 							<#assign layoutType = entry.getLayoutType() />
 
 							<#if layoutType.isBrowsable()>
-								href="${portalUtil.getLayoutURL(entry, themeDisplay)}"
+								href="${siteMapDisplayTemplateHelper.getLayoutURL(entry, themeDisplay)}"
 							</#if>
 
 							>${entry.getName(locale)}</a>
@@ -41,7 +41,7 @@
 						<#assign pageType = page.getLayoutType() />
 
 						<#if pageType.isBrowsable()>
-							href="${portalUtil.getLayoutURL(page, themeDisplay)}"
+							href="${siteMapDisplayTemplateHelper.getLayoutURL(page, themeDisplay)}"
 						</#if>
 
 						>${page.getName(locale)}</a>

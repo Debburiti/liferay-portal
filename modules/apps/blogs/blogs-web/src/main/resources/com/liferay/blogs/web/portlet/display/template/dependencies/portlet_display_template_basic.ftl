@@ -128,7 +128,7 @@
 								target="_blank"
 								title=blogsEntryUtil.getDisplayTitle(resourceBundle, curBlogEntry)
 								types=blogsPortletInstanceConfiguration.socialBookmarksTypes()
-								url=portalUtil.getCanonicalURL(bookmarkURL.toString(), themeDisplay, themeDisplay.getLayout())
+								url=blogsDisplayTemplateHelper.getCanonicalURL(bookmarkURL.toString(), themeDisplay.getLayout(), themeDisplay)
 							/>
 						</div>
 					</div>

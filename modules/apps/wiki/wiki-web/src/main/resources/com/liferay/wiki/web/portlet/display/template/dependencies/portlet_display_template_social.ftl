@@ -22,7 +22,7 @@
 
 		<span class="date"><@liferay.language key="last-modified" /> ${dateUtil.getDate(entry.getModifiedDate(), "dd MMM yyyy - HH:mm:ss", locale)}</span>
 
-		<span class="author"><@liferay.language key="by" /> ${htmlUtil.escape(portalUtil.getUserName(entry.getUserId(), entry.getUserName()))}</span>
+		<span class="author"><@liferay.language key="by" /> ${htmlUtil.escape(wikiDisplayTemplateHelper.getUserName(entry.getUserName(), entry.getUserId()))}</span>
 	</div>
 
 	<div class="wiki-content">
@@ -118,7 +118,7 @@
 						<a href="${viewPageURL}">${childPage.getTitle()}</a>
 					</td>
 					<td>
-						<a href="${viewPageURL}">${dateUtil.getDate(childPage.getModifiedDate(),"dd MMM yyyy - HH:mm:ss", locale)} <@liferay.language key="by" /> ${htmlUtil.escape(portalUtil.getUserName(childPage.getUserId(), childPage.getUserName()))}</a>
+						<a href="${viewPageURL}">${dateUtil.getDate(childPage.getModifiedDate(),"dd MMM yyyy - HH:mm:ss", locale)} <@liferay.language key="by" /> ${htmlUtil.escape(wikiDisplayTemplateHelper.getUserName(childPage.getUserName(), childPage.getUserId()))}</a>
 					</td>
 					<td>
 						<@getRatings

@@ -11,6 +11,7 @@ import com.liferay.portal.kernel.language.Language;
 import com.liferay.portal.kernel.model.Release;
 import com.liferay.portal.kernel.template.TemplateHandler;
 import com.liferay.portal.kernel.template.TemplateVariableGroup;
+import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portlet.display.template.BasePortletDisplayTemplateHandler;
@@ -21,6 +22,7 @@ import com.liferay.wiki.service.WikiNodeLocalService;
 import com.liferay.wiki.service.WikiNodeService;
 import com.liferay.wiki.service.WikiPageLocalService;
 import com.liferay.wiki.service.WikiPageService;
+import com.liferay.wiki.web.internal.util.WikiDisplayTemplateHelper;
 
 import java.util.Locale;
 import java.util.Map;
@@ -41,6 +43,13 @@ public class WikiPortletDisplayTemplateHandler
 	@Override
 	public String getClassName() {
 		return WikiPage.class.getName();
+	}
+
+	@Override
+	public Map<String, Object> getCustomContextObjects() {
+		return HashMapBuilder.<String, Object>put(
+			"wikiDisplayTemplateHelper", new WikiDisplayTemplateHelper()
+		).build();
 	}
 
 	@Override
